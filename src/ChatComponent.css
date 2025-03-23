@@ -1,9 +1,15 @@
 .chat-component {
-  max-width: 900px; 
-  width: 99%; 
+  max-width: 1200px; /* Increased from 900px for wider desktop view */
+  width: 85%; /* Changed to give more width on desktop */
   margin: 0 auto; 
-  margin-top: 20px;
-  overflow: hidden; 
+  margin-top: 10px; /* Reduced from 20px */
+  padding-top: 10px; /* Added padding at top */
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 30px); /* Adjusted height */
+  position: relative;
+  overflow: hidden; /* Prevent outer scrolling */
+  min-width: unset; /* Allow responsive width on mobile */
 }
 
 .header-buttons {
@@ -17,8 +23,20 @@
   margin: 2px auto;
   border: 1px solid #ccc;
   border-radius: 8px;
+  height: 100%;
+  width: 100%;
+  position: relative;
   overflow: hidden;
-  height: 95vh;
+  box-sizing: border-box; /* Include padding in width calculation */
+  max-width: 100%; /* Prevent expanding beyond container */
+}
+
+.nav-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  padding-top: 5px; /* Add padding to top of navigation container */
 }
 
 .chat-header {
@@ -26,25 +44,49 @@
   justify-content: space-between;
   align-items: center;
   background-color: #f0f0f0;
-  padding: 5px 10px;
+  padding: 10px 10px; /* Increased top padding */
   border-bottom: 1px solid #ccc;
-  flex-shrink: 0; /* Prevent header from shrinking */  
+  flex-shrink: 0; /* Prevent header from shrinking */
+  min-height: 40px; /* Ensure minimum height */
+}
+
+/* Chat tab content wrapper */
+.chat-tab-content {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 170px); /* Adjusted height to account for input */
+  position: relative;
+  overflow: hidden;
 }
 
 .messages-container {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: auto !important; /* Force scroll */
+  overflow-x: hidden;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  position: relative;
+  height: 100%;
+}
+
+.message-form-container {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: var(--color-background-container-content);
+  z-index: 100;
+  padding: 10px 10px 20px 10px; /* Increase bottom padding */
+  border-top: 1px solid #ccc;
+  margin-top: auto;
+  flex-shrink: 0;
 }
 
 .message-form {
-  padding: 10px;
-  border-top: 1px solid #ccc;
-  flex-shrink: 0;
   width: 100%;
+  background: inherit;
 }
 
 .scrollable {
@@ -80,16 +122,231 @@
   line-height: 0.5;
 } 
 
-/* Styles for mobile devices with vertical screen orientation */
-@media (max-width: 920px), (orientation: portrait) {
+/* Memory tab styles */
+.memory-panel {
+  height: calc(100vh - 150px);
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Fix width to prevent expansion */
+  max-width: 100%; /* Prevent expanding beyond container */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.memory-summaries {
+  margin-top: 16px;
+  overflow-y: auto;
+  min-height: 200px; /* Set minimum height */
+  height: calc(100% - 80px); /* Calculate height based on container */
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Fix width */
+  box-sizing: border-box; /* Include padding in width calculation */
+  max-width: 100%; /* Prevent expanding beyond container */
+}
+
+/* Tabs container needs to expand */
+.awsui-tabs-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.awsui-tabs-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Cloudscape specific fixes */
+[data-awsui-tabs-container="true"] {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  padding-top: 5px !important; /* Fix top cutoff */
+}
+
+[data-awsui-tabs-content-wrapper="true"] {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  height: 100% !important;
+}
+
+/* Typing indicator animation for streaming responses */
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.typing-indicator span {
+  height: 8px;
+  width: 8px;
+  float: left;
+  margin: 0 1px;
+  background-color: #9E9EA1;
+  display: block;
+  border-radius: 50%;
+  opacity: 0.4;
+}
+
+.typing-indicator span:nth-of-type(1) {
+  animation: 1s typing infinite 0s;
+}
+
+.typing-indicator span:nth-of-type(2) {
+  animation: 1s typing infinite 0.2s;
+}
+
+.typing-indicator span:nth-of-type(3) {
+  animation: 1s typing infinite 0.4s;
+}
+
+@keyframes typing {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 921px) {
+    /* Fix top navigation padding for desktop */
+    [data-awsui-header-region-role="title"] {
+        padding-top: 5px !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        transition: background-color 0.2s ease;
+        border-radius: 4px;
+    }
+    
+    /* Add hover effect for desktop users */
+    [data-awsui-header-region-role="title"]:hover {
+        background-color: rgba(0, 7, 22, 0.05);
+        cursor: pointer;
+    }
+    
+    /* Desktop navigation styles */
+    [data-awsui-button-region-role="utility"] {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important;
+    }
+    
+    /* Show all action buttons directly in the navigation bar */
+    [data-testid="end-summarize-btn"],
+    [data-testid="new-chat-btn"],
+    [data-awsui-button-content="New Chat"],
+    [data-awsui-button-content="End & Summarize"] {
+        display: inline-flex !important;
+        visibility: visible !important;
+    }
+    
+    /* Desktop dropdown menu positioning for settings and user profile */
+    [data-awsui-dropdown-trigger]:nth-of-type(3),
+    [data-awsui-dropdown-trigger]:nth-of-type(4) {
+        order: 999 !important;
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+    }
+    
+    /* Consistent spacing for desktop utilities */
+    div[data-awsui-button-variant="icon"],
+    [data-awsui-button-content-wrapper="true"],
+    [data-awsui-dropdown-trigger] {
+        margin: 0 3px !important;
+    }
+    
+    /* Create nice visual gap above navigation */
     .chat-container {
+        padding-top: 10px;
+    }
+    
+    [data-awsui-collection-role="navigation"] {
+        padding: 8px 0 !important;
+        flex-direction: row !important; /* Ensure horizontal layout */
+    }
+    
+    /* Force icon visibility in desktop mode */
+    [data-awsui-button-icon="true"] {
+        display: inline-flex !important;
+        visibility: visible !important;
+        margin-right: 5px !important;
+        color: white !important;
+        fill: white !important;
+    }
+
+    .chat-component {
+        max-width: 1200px;
+        width: 85%;
+        min-width: 800px; /* Ensure a minimum width on desktop */
+    }
+    
+    .messages-container {
+        padding: 20px 30px;
+    }
+    
+    /* Ensure desktop vs mobile distinct styling for buttons */
+    [data-awsui-button-region-role="utility"] {
+        display: flex !important;
+        flex-direction: row !important;
+    }
+}
+
+/* Styles for mobile devices */
+@media (max-width: 920px), (orientation: portrait) {
+    .chat-component {
+        height: calc(100vh - 20px);
+        margin-top: 10px;
+        width: 95%;
+        max-width: 95vw;
+    }
+    
+    .chat-container {
+        padding-top: 6px; /* Smaller gap for mobile */
         display: flex;
         flex-direction: column;
         width: 100%;
         border: 1px solid #ccc;
         border-radius: 8px;
         overflow: hidden;
-        height: 80vh;
+        height: 100%;
+    }
+    
+    /* More visible menu indicator for mobile */
+    [data-awsui-header-region-role="title"] {
+        background-color: rgba(0, 7, 22, 0.07);
+        border-radius: 4px;
+        padding: 8px !important;
+        margin: 4px 8px !important;
+        position: relative;
+    }
+
+    /* Show action buttons on mobile but condensed */
+    [data-testid="end-summarize-btn"],
+    [data-testid="new-chat-btn"] {
+        display: inline-flex !important;
+        visibility: visible !important;
+    }
+    
+    /* For very small screens, optionally hide button text and show only icons */
+    @media (max-width: 480px) {
+        [data-testid="end-summarize-btn"] span,
+        [data-testid="new-chat-btn"] span {
+            display: none !important;
+        }
     }
 
     .chat-container h1 {
@@ -101,15 +358,243 @@
       font-size: 1.2em;
       line-height: 1;
     } 
+
+    .chat-tab-content {
+      height: calc(100vh - 160px); /* Adjusted for mobile */
+    }
+    
+    .message-form-container {
+      padding: 10px 10px 25px 10px; /* Increased bottom padding on mobile */
+    }
+    
+    /* Mobile-specific navigation adjustments */
+    [data-awsui-button-region-role="utility"] {
+      min-height: 40px !important;
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: wrap !important;
+      justify-content: flex-start !important;
+      align-items: center !important;
+    }
+    
+    /* Mobile dropdown menu styles for consistency */
+    [data-awsui-dropdown-trigger] {
+      order: 999 !important;
+      margin-right: 8px !important;
+    }
+    
+    /* Ensure consistent top utilities on mobile */
+    div[data-awsui-button-variant="icon"],
+    [data-awsui-button-content-wrapper="true"],
+    [data-awsui-dropdown-trigger] {
+      margin: 0 2px !important;
+      padding: 6px !important;
+    }
+    
+    [data-awsui-collection-role="navigation"] {
+      flex-direction: row !important;
+      flex-wrap: wrap !important;
+      justify-content: center !important;
+    }
+    
+    [data-awsui-collection-role="button"] {
+      margin-bottom: 5px !important;
+      margin-right: 5px !important;
+      flex: 0 0 auto !important;
+    }
+    
+    /* Make sure mobile icons are visible */
+    [data-awsui-button-icon="true"], button img, [data-test-id] img {
+      display: inline-flex !important;
+      visibility: visible !important;
+      margin-right: 5px !important;
+      width: 16px !important;
+      height: 16px !important;
+    }
+    
+    /* Ensure all buttons have white text */
+    [data-awsui-button-text="true"] {
+      color: white !important;
+    }
+    }
+    
+    /* Fix for iOS devices */
+    .messages-container {
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 30px; /* Additional padding at bottom */
+    }
+
+    .messages-container {
+      padding: 10px;
+    }
 }
 
 /* Target Safari on iPhone */
 @media only screen
-  and (max-device-width: 1500px)
+  and (max-width: 920px)
   and (orientation: portrait) {
     /* CSS rules specific to Safari on iPhone in portrait mode */
     .chat-component {
-      margin-top: 50px;
+      margin-top: 40px;
     }
+}
 
+/* Fix viewport issues on iOS devices */
+@media screen and (max-width: 844px) and (-webkit-min-device-pixel-ratio: 2) {
+    .chat-component {
+        height: -webkit-fill-available;
+    }
+    
+    .chat-tab-content {
+        height: calc(100vh - 190px);
+    }
+    
+    .memory-panel {
+        height: calc(100vh - 170px);
+    }
+}
+
+/* Add smooth transitions for memory summary items */
+.memory-summary-item {
+    width: 100%;
+    height: auto;
+    transition: all 0.3s ease; /* Smooth transition for any size changes */
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* AWS Cloudscape Navigation fixes */
+[data-awsui-collection-role="navigation"] {
+  padding-top: 2px !important;
+  min-height: 45px !important;
+  margin-top: 2px !important;
+}
+
+[data-awsui-button-region-role="utility"] {
+  padding-top: 0 !important;
+  margin-top: 2px !important;
+}
+
+/* Make the top bar look more clickable */
+[data-awsui-header-region-role="title"] {
+  display: flex !important;
+  align-items: center !important;
+  cursor: pointer !important;
+}
+
+/* Add hover effect to the nav title to indicate it's interactive */
+.awsui-nav-header:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Consistent styling for all top navigation icons */
+div[data-awsui-button-variant="icon"],
+[data-awsui-button-content-wrapper="true"],
+[data-awsui-dropdown-trigger] {
+  margin: 0 4px !important;
+  padding: 8px !important;
+  position: relative !important;
+  border-radius: 4px !important;
+  transition: background-color 0.15s ease !important;
+}
+
+/* Menu button placement */
+div[data-awsui-dropdown-trigger]:first-of-type {
+  margin-left: auto !important; /* Push actions menu to right side */
+}
+
+/* Standardize all icon colors and sizes */
+div[data-awsui-button-variant="icon"] img,
+div[data-awsui-button-variant="icon"] svg,
+[data-awsui-button-content-wrapper="true"] img,
+[data-awsui-button-content-wrapper="true"] svg,
+[data-awsui-dropdown-trigger] img,
+[data-awsui-dropdown-trigger] svg {
+  display: inline-flex !important;
+  visibility: visible !important;
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+
+/* Style dropdown menu list items icons */
+[data-awsui-dropdown-content] [data-awsui-button-content-wrapper] svg,
+[data-awsui-dropdown-content] [data-awsui-button-content-wrapper] img {
+  width: 16px !important;
+  height: 16px !important;
+  margin-right: 8px !important;
+  fill: #333 !important;
+  color: #333 !important;
+  stroke: #333 !important;
+  display: inline-flex !important;
+  visibility: visible !important;
+}
+
+/* Ensure icons are always visible with proper styling */
+[data-awsui-button-content="End & Summarize"] svg,
+[data-awsui-button-content="End & Summarize"] img,
+[data-awsui-button-content="New Chat"] svg,
+[data-awsui-button-content="New Chat"] img,
+[data-testid="end-summarize-btn"] svg,
+[data-testid="end-summarize-btn"] img,
+[data-testid="new-chat-btn"] svg,
+[data-testid="new-chat-btn"] img {
+  display: inline-flex !important;
+  visibility: visible !important;
+  margin-right: 5px !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* Make the End & Summarize button stand out */
+[data-testid="end-summarize-btn"],
+[data-awsui-button-content="End & Summarize"] {
+  font-weight: 500 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background-color: rgba(0, 115, 187, 0.9) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-right: 8px !important;
+}
+
+/* Style for New Chat button */
+[data-testid="new-chat-btn"],
+[data-awsui-button-content="New Chat"] {
+  font-weight: 500 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background-color: rgba(50, 50, 50, 0.3) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-right: 8px !important;
+}
+
+/* Add a subtle hover effect */
+[data-testid="end-summarize-btn"]:hover,
+[data-awsui-button-content="End & Summarize"]:hover {
+  background-color: rgba(0, 115, 187, 1) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Hover for New Chat button */
+[data-testid="new-chat-btn"]:hover,
+[data-awsui-button-content="New Chat"]:hover {
+  background-color: rgba(50, 50, 50, 0.5) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Highlight all buttons on hover or active state */
+div[data-awsui-button-variant="icon"]:hover,
+[data-awsui-button-content-wrapper="true"]:hover,
+[data-awsui-dropdown-trigger]:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.awsui-tabs-header {
+  margin-top: 3px !important;
+  min-height: 45px !important;
 }

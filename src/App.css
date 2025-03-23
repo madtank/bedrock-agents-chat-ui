@@ -16,17 +16,41 @@ body {
   margin: 0 auto;
   padding: 0;
   text-align: center;
-  overflow: hidden;
   width: 100vw;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+  justify-content: center; /* Center root content */
+}
+
+.app-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .centered-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  flex: 1;
   overflow: hidden;
+}
+
+/* Desktop-specific styles */
+@media (min-width: 921px) {
+  .centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
 }
 
 /* Styles for mobile devices with vertical screen orientation */
@@ -35,8 +59,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100vw;
-    overflow: hidden;
+    width: 100%;
+    height: 100%;
   }
 }
 
