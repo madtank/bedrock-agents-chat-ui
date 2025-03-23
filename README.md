@@ -160,14 +160,16 @@ This repository includes GitHub Actions workflows for automated deployment:
    - `AWS_ACCESS_KEY_ID`: Your AWS access key with Amplify permissions
    - `AWS_SECRET_ACCESS_KEY`: Your AWS secret key
    - `AWS_REGION`: Your AWS region (e.g., us-east-1)
-   - `COGNITO_REGION`: The region of your Cognito resources
-   - `COGNITO_USER_POOL_ID`: Your Cognito user pool ID
-   - `COGNITO_USER_POOL_CLIENT_ID`: Your Cognito app client ID
-   - `COGNITO_IDENTITY_POOL_ID`: Your Cognito identity pool ID
-   - `BEDROCK_REGION`: The region for Bedrock (e.g., us-west-2)
-   - `BEDROCK_AGENT_ID`: Your Bedrock agent ID
-   - `BEDROCK_AGENT_ALIAS_ID`: Your Bedrock agent alias ID
-   - `BEDROCK_AGENT_NAME`: Display name for your agent
+   - `COGNITO_REGION`: The region of your Cognito resources (maps to VITE_COGNITO_REGION)
+   - `COGNITO_USER_POOL_ID`: Your Cognito user pool ID (maps to VITE_COGNITO_USER_POOL_ID)
+   - `COGNITO_USER_POOL_CLIENT_ID`: Your Cognito app client ID (maps to VITE_COGNITO_USER_POOL_CLIENT_ID)
+   - `COGNITO_IDENTITY_POOL_ID`: Your Cognito identity pool ID (maps to VITE_COGNITO_IDENTITY_POOL_ID)
+   - `BEDROCK_REGION`: The region for Bedrock (maps to VITE_BEDROCK_REGION)
+   - `BEDROCK_AGENT_ID`: Your Bedrock agent ID (maps to VITE_BEDROCK_AGENT_ID)
+   - `BEDROCK_AGENT_ALIAS_ID`: Your Bedrock agent alias ID (maps to VITE_BEDROCK_AGENT_ALIAS_ID)
+   - `BEDROCK_AGENT_NAME`: Display name for your agent (maps to VITE_BEDROCK_AGENT_NAME)
+   
+   > **Note**: The GitHub workflow automatically maps these secrets to the environment variables with the `VITE_` prefix needed by the application.
 
 3. Push to the `main` branch (production) or `develop` branch (development) to trigger deployment
 

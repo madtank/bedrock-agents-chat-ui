@@ -42,19 +42,21 @@ The project includes a GitHub Actions workflow file (`.github/workflows/amplify-
 
 Set up the following secrets in your GitHub repository:
 
-| Secret Name | Description |
-|-------------|-------------|
-| `AWS_ACCESS_KEY_ID` | AWS access key with Amplify permissions |
-| `AWS_SECRET_ACCESS_KEY` | AWS secret key |
-| `AWS_REGION` | AWS region for deployment |
-| `COGNITO_REGION` | Region for Cognito resources |
-| `COGNITO_USER_POOL_ID` | Cognito user pool ID |
-| `COGNITO_USER_POOL_CLIENT_ID` | Cognito app client ID |
-| `COGNITO_IDENTITY_POOL_ID` | Cognito identity pool ID |
-| `BEDROCK_REGION` | Region for Bedrock (e.g., us-west-2) |
-| `BEDROCK_AGENT_ID` | Bedrock agent ID |
-| `BEDROCK_AGENT_ALIAS_ID` | Bedrock agent alias ID |
-| `BEDROCK_AGENT_NAME` | Display name for your agent |
+| GitHub Secret Name | Description | Maps to Environment Variable |
+|-------------|-------------|-------------|
+| `AWS_ACCESS_KEY_ID` | AWS access key with Amplify permissions | (Used for AWS authentication) |
+| `AWS_SECRET_ACCESS_KEY` | AWS secret key | (Used for AWS authentication) |
+| `AWS_REGION` | AWS region for deployment | (Used for AWS authentication) |
+| `COGNITO_REGION` | Region for Cognito resources | `VITE_COGNITO_REGION` |
+| `COGNITO_USER_POOL_ID` | Cognito user pool ID | `VITE_COGNITO_USER_POOL_ID` |
+| `COGNITO_USER_POOL_CLIENT_ID` | Cognito app client ID | `VITE_COGNITO_USER_POOL_CLIENT_ID` |
+| `COGNITO_IDENTITY_POOL_ID` | Cognito identity pool ID | `VITE_COGNITO_IDENTITY_POOL_ID` |
+| `BEDROCK_REGION` | Region for Bedrock (e.g., us-west-2) | `VITE_BEDROCK_REGION` |
+| `BEDROCK_AGENT_ID` | Bedrock agent ID | `VITE_BEDROCK_AGENT_ID` |
+| `BEDROCK_AGENT_ALIAS_ID` | Bedrock agent alias ID | `VITE_BEDROCK_AGENT_ALIAS_ID` |
+| `BEDROCK_AGENT_NAME` | Display name for your agent | `VITE_BEDROCK_AGENT_NAME` |
+
+> **Note**: The GitHub workflow automatically maps these secrets to the corresponding environment variables with the `VITE_` prefix needed by the application.
 
 ### Environment-Specific Settings
 
