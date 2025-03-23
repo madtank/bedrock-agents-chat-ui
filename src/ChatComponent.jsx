@@ -587,7 +587,7 @@ const ChatComponent = ({ user, onLogout, onConfigEditorClick }) => {
     try {
       const date = new Date(dateString);
       return date.toLocaleString();
-    } catch (error) {
+    } catch (_) {
       return dateString.toString();
     }
   };
