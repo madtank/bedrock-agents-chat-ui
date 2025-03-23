@@ -14,7 +14,7 @@ let awsExports = null;
 try {
   // Use dynamic import to avoid build errors if file doesn't exist
   awsExports = await import('../aws-exports').catch(() => null);
-} catch (error) {
+} catch {
   console.info('No aws-exports.js file found');
 }
 

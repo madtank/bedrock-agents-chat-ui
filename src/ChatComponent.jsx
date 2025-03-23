@@ -296,12 +296,13 @@ const ChatComponent = ({ user, onLogout, onConfigEditorClick }) => {
 
   /**
    * Manually scroll to a specific position in the messages container
+   * @param {number} position - The scroll position to set
    */
-  const scrollToPosition = (position) => {
-    if (messagesContainerRef.current) {
-      messagesContainerRef.current.scrollTop = position;
-    }
-  };
+  // const scrollToPosition = (position) => {
+  //   if (messagesContainerRef.current) {
+  //     messagesContainerRef.current.scrollTop = position;
+  //   }
+  // };
 
   /**
    * Retrieves memory summaries from Bedrock Agent
@@ -586,7 +587,7 @@ const ChatComponent = ({ user, onLogout, onConfigEditorClick }) => {
     try {
       const date = new Date(dateString);
       return date.toLocaleString();
-    } catch (e) {
+    } catch (error) {
       return dateString.toString();
     }
   };
@@ -828,7 +829,7 @@ const ChatComponent = ({ user, onLogout, onConfigEditorClick }) => {
                             <li>Go to the Amazon Bedrock console</li>
                             <li>Edit your agent configuration</li>
                             <li>Enable the memory feature</li>
-                            <li>Ensure you're using a supported foundation model (Claude 3 Sonnet, Claude 3 Haiku, etc.)</li>
+                            <li>Ensure you&apos;re using a supported foundation model (Claude 3 Sonnet, Claude 3 Haiku, etc.)</li>
                           </ol>
                         </Alert>
                       ) : loadingMemory ? (
