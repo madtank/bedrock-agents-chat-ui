@@ -7,7 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "amplify:push": "amplify push",
+    "amplify:publish": "amplify publish",
+    "amplify:status": "amplify status",
+    "deploy:dev": "npm run build && amplify publish -c --envName=dev",
+    "deploy:prod": "npm run build && amplify publish -c --envName=prod"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.5.5",
