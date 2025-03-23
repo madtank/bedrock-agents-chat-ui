@@ -13,7 +13,29 @@ A React-based web application that enables interaction with Amazon Bedrock Agent
 ### Chat interaction
 ![chatprompt](https://github.com/user-attachments/assets/6ea57a4d-503a-4936-a2c4-a7d0c8b2b8a5)
 
+## Memory Feature
 
+This application supports Bedrock Agents' memory capabilities, allowing agents to maintain context across multiple conversations. The memory feature works as follows:
+
+### How Memory Works
+
+- **Session Summaries**: When you end a conversation using the "End & Summarize" button, the application automatically generates a summary of the conversation and stores it in the agent's memory.
+- **Persistent Context**: The agent can recall information from previous conversations, providing a more coherent and personalized experience.
+- **Memory Tab**: Access previous conversation summaries through the Memory tab in the interface.
+
+### Key Features
+
+- **End & Summarize**: Explicitly end a conversation and create a summary for future reference.
+- **Memory ID**: Each user is assigned a unique memory ID based on their username, ensuring personalized context persistence.
+- **Memory Retrieval**: The agent can access relevant information from past conversations to inform current responses.
+
+### Using Memory
+
+1. Make sure memory is enabled for your Bedrock Agent (see setup instructions below).
+2. Start a conversation with your agent.
+3. When you want to end the session and save a summary, click the "End & Summarize" button.
+4. For future conversations, the agent will be able to reference information from previous sessions.
+5. View all conversation summaries in the Memory tab.
 
 ## Prerequisites
 
@@ -47,7 +69,13 @@ amplify push
 
 2. Set up Amazon Bedrock Agent
 - Create and configure your Bedrock Agent in the AWS Console
-- Note down the Agent ID and other relevant configuration details
+- Enable the Memory feature in your Bedrock Agent:
+  - In the Amazon Bedrock console, navigate to your agent
+  - Click on "Edit"
+  - In the "Advanced settings" section, enable "Memory"
+  - Choose a supported foundation model (Claude 3 Sonnet, Claude 3 Haiku, etc.)
+  - Save your changes
+- Note down the Agent ID and Agent Alias ID for configuration in this application
 
 ## Local Development
 
@@ -56,7 +84,6 @@ amplify push
 ```bash
 npm install
 ```
-
 
 2. Start the development server:
 
