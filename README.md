@@ -109,7 +109,88 @@ npm run preview
 
 ## Deployment to AWS Amplify
 
-### Option 1: Manual Deployment
+### Configuration Options
+
+The application supports three methods of configuration:
+
+#### 1. Environment Variables (Recommended for Production)
+
+Create a `.env.local` file with the following variables:
+
+```
+VITE_COGNITO_REGION=us-east-1
+VITE_COGNITO_USER_POOL_ID=us-east-1_example
+VITE_COGNITO_USER_POOL_CLIENT_ID=abcdefghijklmnop
+VITE_COGNITO_IDENTITY_POOL_ID=us-east-1:12345678-abcd-efgh-ijkl-123456789012
+VITE_BEDROCK_REGION=us-east-1
+VITE_BEDROCK_AGENT_ID=example-agent-id
+VITE_BEDROCK_AGENT_ALIAS_ID=example-alias-id
+VITE_BEDROCK_AGENT_NAME=My Agent
+```
+
+#### 2. AWS Amplify Generated Configuration
+
+Use the Amplify CLI to generate resources:
+
+```bash
+amplify init
+amplify add auth
+amplify push
+```
+
+This will create an `aws-exports.js` file with your configuration.
+
+#### 3. Manual Configuration (UI-Based)
+
+If no environment variables or aws-exports.js are present, the application will show a configuration form for manual entry.
+
+### Deployment Options
+
+#### Option 1: CI/CD with GitHub Actions (Recommended)
+
+This repository includes GitHub Actions workflows for automated deployment:
+
+1. Connect your repository to AWS Amplify:
+   - Go to AWS Amplify Console
+   - Click "New App" > "Host Web App"
+   - Choose GitHub as your repository provider
+   - Follow the setup wizard
+
+2. Set up the following secrets in your GitHub repository:
+   - `AWS_ACCESS_KEY_ID`: Your AWS access key with Amplify permissions
+   - `AWS_SECRET_ACCESS_KEY`: Your AWS secret key
+   - `AWS_REGION`: Your AWS region (e.g., us-east-1)
+   - `COGNITO_REGION`: The region of your Cognito resources (maps to VITE_COGNITO_REGION)
+   - `COGNITO_USER_POOL_ID`: Your Cognito user pool ID (maps to VITE_COGNITO_USER_POOL_ID)
+   - `COGNITO_USER_POOL_CLIENT_ID`: Your Cognito app client ID (maps to VITE_COGNITO_USER_POOL_CLIENT_ID)
+   - `COGNITO_IDENTITY_POOL_ID`: Your Cognito identity pool ID (maps to VITE_COGNITO_IDENTITY_POOL_ID)
+   - `BEDROCK_REGION`: The region for Bedrock (maps to VITE_BEDROCK_REGION)
+   - `BEDROCK_AGENT_ID`: Your Bedrock agent ID (maps to VITE_BEDROCK_AGENT_ID)
+   - `BEDROCK_AGENT_ALIAS_ID`: Your Bedrock agent alias ID (maps to VITE_BEDROCK_AGENT_ALIAS_ID)
+   - `BEDROCK_AGENT_NAME`: Display name for your agent (maps to VITE_BEDROCK_AGENT_NAME)
+   
+   > **Note**: The GitHub workflow automatically maps these secrets to the environment variables with the `VITE_` prefix needed by the application.
+
+3. Push to the `main` branch (production) or `develop` branch (development) to trigger deployment
+
+#### Option 2: Manual Deployment with Amplify CLI
+
+1. Configure your environment variables in `.env.local`
+
+2. Deploy to development environment:
+
+```bash
+npm run deploy:dev
+```
+
+3. Deploy to production environment:
+
+```bash
+npm run deploy:prod
+```
+
+#### Option 3: Manual Deployment through Amplify Console
+
 1. Build the application:
 
 ```bash
@@ -125,7 +206,8 @@ zip -r ../deployment.zip ./*
 
 3. Upload the deployment.zip file through the AWS Amplify Console
 
-### Option 2: Continuous Deployment
+#### Option 4: Automatic Deployment from Repository
+
 1. Connect your repository to AWS Amplify:
    - Go to AWS Amplify Console
    - Click "New App" > "Host Web App"
